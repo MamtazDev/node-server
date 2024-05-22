@@ -9,6 +9,8 @@ export type IUser = {
   number: string
   password: string
   role: TRole
+  is_email_verified: boolean
+  is_number_verified: boolean
   createdAt: Date
   updatedAt: Date
 }

@@ -23,7 +23,7 @@ const login = asyncHandler(async (req, res) => {
 })
 
 const resetPassword = asyncHandler(async (req, res) => {
-  const { data } = await service.resetPassword(req.body)
+  const { data } = await service.resetPassword(req.body, req.user)
 
   apiResponse<Partial<IType>>(res, {
     message: `${User.modelName} password reset successfully.`,
@@ -31,8 +31,18 @@ const resetPassword = asyncHandler(async (req, res) => {
   })
 })
 
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { data } = await service.resetPassword(req.body, req.user)
+
+  apiResponse<Partial<IType>>(res, {
+    message: `${User.modelName} forgot password successfully.`,
+    data
+  })
+})
+
 export const AuthController = {
   registration,
   login,
-  resetPassword
+  resetPassword,
+  forgotPassword
 }

@@ -1,4 +1,6 @@
 import { JwtPayload } from 'jsonwebtoken'
+import { z } from 'zod'
+import { AuthZod } from '../../app/modules/auth/auth.zod'
 
 export type TRole = 'admin' | 'subscriber'
 
@@ -48,3 +50,5 @@ export type TUpdate<T> = (
 export type TDelete<T> = (id: string) => Promise<{
   data: Partial<T> | null
 }>
+
+export type TResetPassword = z.infer<typeof AuthZod.resetPassword>['body']

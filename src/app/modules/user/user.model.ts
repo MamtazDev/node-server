@@ -10,8 +10,11 @@ const schema = new Schema<IUser, IUserModel>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
+    number: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
-    role: { type: String, required: true, enum: xRole }
+    role: { type: String, required: true, enum: xRole },
+    is_email_verified: { type: Boolean, required: true, default: false },
+    is_number_verified: { type: Boolean, required: true, default: false }
   },
   {
     timestamps: true,

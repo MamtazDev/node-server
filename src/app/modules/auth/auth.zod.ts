@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { xObjectId, xPassword, xRole } from '../../../global/constant'
+import { xPassword, xRole } from '../../../global/constant'
 
 const registration = z.object({
   body: z
@@ -26,7 +26,7 @@ const login = z.object({
 const resetPassword = z.object({
   body: z
     .strictObject({
-      _id: z.string().regex(xObjectId),
+      token: z.string().optional(),
       password: z.string().regex(xPassword),
       new_password: z.string().regex(xPassword),
       confirm_new_password: z.string().regex(xPassword)
