@@ -1,6 +1,6 @@
 import httpStatus from 'http-status'
 import config from '../../../config'
-import { TJwtUser, TResetPassword } from '../../../global/types'
+import { TForgotPassword, TJwtUser, TLogin, TResetPassword } from '../../../global/types'
 import { ApiError, generateExpire, generateHashToken, generateOTP, generateToken } from '../../../shared'
 import { Token } from '../token/token.model'
 import { IUser as IType } from '../user/user.interface'
@@ -11,11 +11,12 @@ const registration = async (data: IType) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { password, ...userinfo } = result.toObject()
-
+  // TODO: email verification wil be places here!
+  
   return { data: userinfo }
 }
 
-const login = async (data: Pick<IType, 'email' | 'password'>) => {
+const login = async (data: TLogin) => {
   // get user information
   const result = await Model.findOne({ email: data.email }).select('+password')
 
@@ -100,7 +101,7 @@ const resetPassword = async (data: TResetPassword, user: TJwtUser) => {
   throw new ApiError(httpStatus.UNAUTHORIZED, 'Something is wrong')
 }
 
-const forgotPassword = async ({ email }: { email: string }) => {
+const forgotPassword = async ({ email }: TForgotPassword) => {
   const user = await Model.findOne({ email }, { _id: 1 })
 
   if (!user) {
@@ -119,7 +120,7 @@ const forgotPassword = async ({ email }: { email: string }) => {
     blacklisted: false
   })
 
-  // Email send
+  // TODO: email send
   console.log(result)
 
   return { data: { email } }

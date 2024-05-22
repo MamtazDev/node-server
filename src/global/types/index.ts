@@ -52,3 +52,7 @@ export type TDelete<T> = (id: string) => Promise<{
 }>
 
 export type TResetPassword = z.infer<typeof AuthZod.resetPassword>['body']
+
+export type TForgotPassword = z.infer<typeof AuthZod.forgotPassword>['body']
+
+export type TLogin = z.infer<typeof AuthZod.login>['body']

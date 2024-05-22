@@ -8,11 +8,17 @@ const registration = z.object({
       email: z.string().email(),
       role: z.enum(xRole as [string]),
       password: z.string().regex(xPassword),
-      confirm_password: z.string().regex(xPassword)
+      confirm_password: z.string().regex(xPassword),
+      send_otp: z.boolean(),
+      token_type: z.enum(['d']).optional()
     })
     .refine(data => data.password === data.confirm_password, {
       message: "Passwords don't match",
       path: ['confirm_password']
+    })
+    .refine(data => data.send_otp && data.token_type, {
+      message: 'Token type is required when send OTP is true',
+      path: ['token_type']
     })
 })
 
